@@ -48,7 +48,7 @@
        <p id="numbers"></p>
       </div>
       <div class="container">
-            <div class="row justify-content-center mb-3">
+            <div class="row justify-content-around mb-3">
               <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="sampleclass arrange" >0</div>
               </div>
@@ -80,8 +80,6 @@
         var btn=document.querySelector("#gamebegin");
         var count;
         var count2;
-       
-
         var items=document.querySelectorAll(".sampleclass");
         var para=document.querySelector("#numbers");
         btn.addEventListener("click",function(){
@@ -97,34 +95,58 @@
             items[i].textContent=i;
           }
           para.textContent="Random number generated is "+random+" find it!";
-          
+          for(var i=0;i<items.length;i++){
+           items[i].addEventListener("click",checker);
+           }
         });
         rvl.addEventListener("click",function(){
           count2=2;
           para.textContent="Random number "+random+" was located at "+(random2+1);
+         
+          for(var i=0;i<items.length;i++){
+            items[i].style.background="crimson";
+            items[i].style.color="crimson";
+          }
+          items[random2].textContent=random;
+          items[random2].style.background="green"; 
+          items[random2].style.color="cornsilk";
+          for(var i=0;i<items.length;i++){
+            items[i].removeEventListener("click",checker);
+          }
 
 
         });
-       
-        
-        for(var i=0;i<items.length;i++){
-          items[i].addEventListener("click",function(){
-            if(this.textContent==random2){
+        function checker(){
+          if(this.textContent==random2){
               this.style.background="green";
               this.style.color="cornsilk";
               this.textContent=random;
               if(count2==3){
               alert("Hurrah! You have won the game press start to play again.");
+              for(var i=0;i<items.length;i++){
+            items[i].removeEventListener("click",checker);
+          }
+
             }
               
             }
             else{
               if(count==2){
-                alert("Oops! You lost the game press reveal button ");
-                for(var i=0;i<items.length;i++){
-                items[i].style.background="cadetblue";
-                items[i].style.color="cadetblue";
-                }
+                alert("Oops! You lost the game ");
+                para.textContent="Random number "+random+" was located at "+(random2+1);
+         
+         for(var i=0;i<items.length;i++){
+           items[i].style.background="crimson";
+           items[i].style.color="crimson";
+         }
+         items[random2].textContent=random;
+         items[random2].style.background="green"; 
+         items[random2].style.color="cornsilk";
+         for(var i=0;i<items.length;i++){
+           items[i].removeEventListener("click",checker);
+         }
+
+                
                 
               }
               else{
@@ -133,8 +155,11 @@
                 this.style.color="cornsilk";
               }
             }
-          });
-          }
+        }
+       
+        
+     
+          
           
       
       
